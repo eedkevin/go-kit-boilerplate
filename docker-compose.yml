@@ -1,0 +1,22 @@
+version: "3.7"
+
+services:
+  nginx:
+    image: nginx
+    networks: 
+      - go-kit-boilerplate
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+
+  echo-service:
+    build:
+      context: ./echo
+      dockerfile: Dockerfile
+    networks:
+      - go-kit-boilerplate
+
+networks:
+  go-kit-boilerplate:
+    driver: bridge
