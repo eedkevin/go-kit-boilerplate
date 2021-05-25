@@ -1,0 +1,43 @@
+
+syntax = "proto3";
+
+package account;
+
+import "github.com/metaverse/truss/deftree/googlethirdparty/annotations.proto";
+
+service Account {
+  rpc Status(StatusRequest) returns (StatusResponse) {
+    option (google.api.http) = {
+      get: "/status"
+    };
+  }
+
+  rpc AuthLogin(AuthLoginRequest) returns (AuthLoginResponse) {
+    option (google.api.http) = {
+      post: "/auth/login"
+    };
+  }
+
+}
+
+enum ServiceStatus {
+  FAIL = 0;
+  OK = 1;
+}
+
+message StatusRequest {
+  bool full = 1;
+}
+
+message StatusResponse {
+  ServiceStatus status = 1;
+}
+
+message AuthLoginRequest {
+  string username = 1;
+  string password = 2;
+}
+
+message AuthLoginResponse {
+  string token = 1;
+}
