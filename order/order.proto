@@ -1,0 +1,49 @@
+
+syntax = "proto3";
+
+package order;
+
+import "github.com/metaverse/truss/deftree/googlethirdparty/annotations.proto";
+
+service Order {
+  rpc Status(StatusRequest) returns (StatusResponse) {
+    option (google.api.http) = {
+      get: "/status"
+    };
+  }
+
+  rpc PlaceOrder(PlaceOrderRequest) returns (PlaceOrderResponse) {
+    option (google.api.http) = {
+      post: "/place_order"
+      body: "*"
+    };
+  }
+}
+
+enum ServiceStatus {
+  FAIL = 0;
+  OK = 1;
+}
+
+message GeoCoordinate {
+  float lat = 1;
+  float lng = 2;
+}
+
+message StatusRequest {
+  bool full = 1;
+}
+
+message StatusResponse {
+  ServiceStatus status = 1;
+}
+
+message PlaceOrderRequest {
+  string user_id = 1;
+  GeoCoordinate origin = 2;
+  GeoCoordinate destination = 3;
+}
+
+message PlaceOrderResponse {
+  string order_id = 1;
+}

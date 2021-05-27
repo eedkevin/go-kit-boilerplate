@@ -1,0 +1,48 @@
+
+syntax = "proto3";
+
+package geo;
+
+import "github.com/metaverse/truss/deftree/googlethirdparty/annotations.proto";
+
+service Geo {
+  rpc Status(StatusRequest) returns (StatusResponse) {
+    option (google.api.http) = {
+      get: "/status"
+    };
+  }
+
+  rpc Distance(DistanceRequest) returns (DistanceResponse) {
+    option (google.api.http) = {
+      post: "/distance"
+      body: "*"
+    };
+  }
+}
+
+enum ServiceStatus {
+  FAIL = 0;
+  OK = 1;
+}
+
+message GeoCoordinate {
+  float lat = 1;
+  float lng = 2;
+}
+
+message StatusRequest {
+  bool full = 1;
+}
+
+message StatusResponse {
+  ServiceStatus status = 1;
+}
+
+message DistanceRequest {
+  GeoCoordinate origin = 1;
+  GeoCoordinate destination = 2;
+}
+
+message DistanceResponse {
+  int32 distance = 1;
+}
