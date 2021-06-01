@@ -12,9 +12,15 @@ service Account {
     };
   }
 
-  rpc AuthLogin(AuthLoginRequest) returns (AuthLoginResponse) {
+  rpc AuthToken(AuthTokenRequest) returns (AuthTokenResponse) {
     option (google.api.http) = {
-      post: "/auth/login"
+      post: "/auth/token"
+    };
+  }
+
+  rpc AuthTokenValidate(AuthTokenValidateRequest) returns (AuthTokenValidateResponse) {
+    option (google.api.http) = {
+      post: "/auth/token/validate"
     };
   }
 
@@ -33,11 +39,19 @@ message StatusResponse {
   ServiceStatus status = 1;
 }
 
-message AuthLoginRequest {
+message AuthTokenRequest {
   string username = 1;
   string password = 2;
 }
 
-message AuthLoginResponse {
+message AuthTokenResponse {
   string token = 1;
+}
+
+message AuthTokenValidateRequest {
+  string token = 1;
+}
+
+message AuthTokenValidateResponse {
+  bool is_valid = 2;
 }

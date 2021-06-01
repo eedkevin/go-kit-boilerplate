@@ -62,9 +62,16 @@ func MakeHTTPHandler(endpoints Endpoints, options ...httptransport.ServerOption)
 		serverOptions...,
 	))
 
-	m.Methods("POST").Path("/auth/login").Handler(httptransport.NewServer(
-		endpoints.AuthLoginEndpoint,
-		DecodeHTTPAuthLoginZeroRequest,
+	m.Methods("POST").Path("/auth/token").Handler(httptransport.NewServer(
+		endpoints.AuthTokenEndpoint,
+		DecodeHTTPAuthTokenZeroRequest,
+		EncodeHTTPGenericResponse,
+		serverOptions...,
+	))
+
+	m.Methods("POST").Path("/auth/token/validate").Handler(httptransport.NewServer(
+		endpoints.AuthTokenValidateEndpoint,
+		DecodeHTTPAuthTokenValidateZeroRequest,
 		EncodeHTTPGenericResponse,
 		serverOptions...,
 	))
@@ -166,12 +173,12 @@ func DecodeHTTPStatusZeroRequest(_ context.Context, r *http.Request) (interface{
 	return &req, err
 }
 
-// DecodeHTTPAuthLoginZeroRequest is a transport/http.DecodeRequestFunc that
-// decodes a JSON-encoded authlogin request from the HTTP request
+// DecodeHTTPAuthTokenZeroRequest is a transport/http.DecodeRequestFunc that
+// decodes a JSON-encoded authtoken request from the HTTP request
 // body. Primarily useful in a server.
-func DecodeHTTPAuthLoginZeroRequest(_ context.Context, r *http.Request) (interface{}, error) {
+func DecodeHTTPAuthTokenZeroRequest(_ context.Context, r *http.Request) (interface{}, error) {
 	defer r.Body.Close()
-	var req pb.AuthLoginRequest
+	var req pb.AuthTokenRequest
 	buf, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		return nil, errors.Wrapf(err, "cannot read body of http request")
@@ -199,16 +206,58 @@ func DecodeHTTPAuthLoginZeroRequest(_ context.Context, r *http.Request) (interfa
 	queryParams := r.URL.Query()
 	_ = queryParams
 
-	if UsernameAuthLoginStrArr, ok := queryParams["username"]; ok {
-		UsernameAuthLoginStr := UsernameAuthLoginStrArr[0]
-		UsernameAuthLogin := UsernameAuthLoginStr
-		req.Username = UsernameAuthLogin
+	if UsernameAuthTokenStrArr, ok := queryParams["username"]; ok {
+		UsernameAuthTokenStr := UsernameAuthTokenStrArr[0]
+		UsernameAuthToken := UsernameAuthTokenStr
+		req.Username = UsernameAuthToken
 	}
 
-	if PasswordAuthLoginStrArr, ok := queryParams["password"]; ok {
-		PasswordAuthLoginStr := PasswordAuthLoginStrArr[0]
-		PasswordAuthLogin := PasswordAuthLoginStr
-		req.Password = PasswordAuthLogin
+	if PasswordAuthTokenStrArr, ok := queryParams["password"]; ok {
+		PasswordAuthTokenStr := PasswordAuthTokenStrArr[0]
+		PasswordAuthToken := PasswordAuthTokenStr
+		req.Password = PasswordAuthToken
+	}
+
+	return &req, err
+}
+
+// DecodeHTTPAuthTokenValidateZeroRequest is a transport/http.DecodeRequestFunc that
+// decodes a JSON-encoded authtokenvalidate request from the HTTP request
+// body. Primarily useful in a server.
+func DecodeHTTPAuthTokenValidateZeroRequest(_ context.Context, r *http.Request) (interface{}, error) {
+	defer r.Body.Close()
+	var req pb.AuthTokenValidateRequest
+	buf, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		return nil, errors.Wrapf(err, "cannot read body of http request")
+	}
+	if len(buf) > 0 {
+		// AllowUnknownFields stops the unmarshaler from failing if the JSON contains unknown fields.
+		unmarshaller := jsonpb.Unmarshaler{
+			AllowUnknownFields: true,
+		}
+		if err = unmarshaller.Unmarshal(bytes.NewBuffer(buf), &req); err != nil {
+			const size = 8196
+			if len(buf) > size {
+				buf = buf[:size]
+			}
+			return nil, httpError{errors.Wrapf(err, "request body '%s': cannot parse non-json request body", buf),
+				http.StatusBadRequest,
+				nil,
+			}
+		}
+	}
+
+	pathParams := mux.Vars(r)
+	_ = pathParams
+
+	queryParams := r.URL.Query()
+	_ = queryParams
+
+	if TokenAuthTokenValidateStrArr, ok := queryParams["token"]; ok {
+		TokenAuthTokenValidateStr := TokenAuthTokenValidateStrArr[0]
+		TokenAuthTokenValidate := TokenAuthTokenValidateStr
+		req.Token = TokenAuthTokenValidate
 	}
 
 	return &req, err

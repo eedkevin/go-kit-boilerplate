@@ -21,8 +21,14 @@ func (s accountService) Status(ctx context.Context, in *pb.StatusRequest) (*pb.S
 	return &resp, nil
 }
 
-func (s accountService) AuthLogin(ctx context.Context, in *pb.AuthLoginRequest) (*pb.AuthLoginResponse, error) {
-	var resp pb.AuthLoginResponse
+func (s accountService) AuthToken(ctx context.Context, in *pb.AuthTokenRequest) (*pb.AuthTokenResponse, error) {
+	var resp pb.AuthTokenResponse
 	resp.Token = uuid.NewString()
+	return &resp, nil
+}
+
+func (s accountService) AuthTokenValidate(ctx context.Context, in *pb.AuthTokenValidateRequest) (*pb.AuthTokenValidateResponse, error) {
+	var resp pb.AuthTokenValidateResponse
+	resp.IsValid = true
 	return &resp, nil
 }

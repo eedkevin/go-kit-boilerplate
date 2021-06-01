@@ -49,22 +49,36 @@ func New(conn *grpc.ClientConn, options ...ClientOption) (pb.AccountServer, erro
 		).Endpoint()
 	}
 
-	var authloginEndpoint endpoint.Endpoint
+	var authtokenEndpoint endpoint.Endpoint
 	{
-		authloginEndpoint = grpctransport.NewClient(
+		authtokenEndpoint = grpctransport.NewClient(
 			conn,
 			"account.Account",
-			"AuthLogin",
-			EncodeGRPCAuthLoginRequest,
-			DecodeGRPCAuthLoginResponse,
-			pb.AuthLoginResponse{},
+			"AuthToken",
+			EncodeGRPCAuthTokenRequest,
+			DecodeGRPCAuthTokenResponse,
+			pb.AuthTokenResponse{},
+			clientOptions...,
+		).Endpoint()
+	}
+
+	var authtokenvalidateEndpoint endpoint.Endpoint
+	{
+		authtokenvalidateEndpoint = grpctransport.NewClient(
+			conn,
+			"account.Account",
+			"AuthTokenValidate",
+			EncodeGRPCAuthTokenValidateRequest,
+			DecodeGRPCAuthTokenValidateResponse,
+			pb.AuthTokenValidateResponse{},
 			clientOptions...,
 		).Endpoint()
 	}
 
 	return svc.Endpoints{
-		StatusEndpoint:    statusEndpoint,
-		AuthLoginEndpoint: authloginEndpoint,
+		StatusEndpoint:            statusEndpoint,
+		AuthTokenEndpoint:         authtokenEndpoint,
+		AuthTokenValidateEndpoint: authtokenvalidateEndpoint,
 	}, nil
 }
 
@@ -77,10 +91,17 @@ func DecodeGRPCStatusResponse(_ context.Context, grpcReply interface{}) (interfa
 	return reply, nil
 }
 
-// DecodeGRPCAuthLoginResponse is a transport/grpc.DecodeResponseFunc that converts a
-// gRPC authlogin reply to a user-domain authlogin response. Primarily useful in a client.
-func DecodeGRPCAuthLoginResponse(_ context.Context, grpcReply interface{}) (interface{}, error) {
-	reply := grpcReply.(*pb.AuthLoginResponse)
+// DecodeGRPCAuthTokenResponse is a transport/grpc.DecodeResponseFunc that converts a
+// gRPC authtoken reply to a user-domain authtoken response. Primarily useful in a client.
+func DecodeGRPCAuthTokenResponse(_ context.Context, grpcReply interface{}) (interface{}, error) {
+	reply := grpcReply.(*pb.AuthTokenResponse)
+	return reply, nil
+}
+
+// DecodeGRPCAuthTokenValidateResponse is a transport/grpc.DecodeResponseFunc that converts a
+// gRPC authtokenvalidate reply to a user-domain authtokenvalidate response. Primarily useful in a client.
+func DecodeGRPCAuthTokenValidateResponse(_ context.Context, grpcReply interface{}) (interface{}, error) {
+	reply := grpcReply.(*pb.AuthTokenValidateResponse)
 	return reply, nil
 }
 
@@ -93,10 +114,17 @@ func EncodeGRPCStatusRequest(_ context.Context, request interface{}) (interface{
 	return req, nil
 }
 
-// EncodeGRPCAuthLoginRequest is a transport/grpc.EncodeRequestFunc that converts a
-// user-domain authlogin request to a gRPC authlogin request. Primarily useful in a client.
-func EncodeGRPCAuthLoginRequest(_ context.Context, request interface{}) (interface{}, error) {
-	req := request.(*pb.AuthLoginRequest)
+// EncodeGRPCAuthTokenRequest is a transport/grpc.EncodeRequestFunc that converts a
+// user-domain authtoken request to a gRPC authtoken request. Primarily useful in a client.
+func EncodeGRPCAuthTokenRequest(_ context.Context, request interface{}) (interface{}, error) {
+	req := request.(*pb.AuthTokenRequest)
+	return req, nil
+}
+
+// EncodeGRPCAuthTokenValidateRequest is a transport/grpc.EncodeRequestFunc that converts a
+// user-domain authtokenvalidate request to a gRPC authtokenvalidate request. Primarily useful in a client.
+func EncodeGRPCAuthTokenValidateRequest(_ context.Context, request interface{}) (interface{}, error) {
+	req := request.(*pb.AuthTokenValidateRequest)
 	return req, nil
 }
 

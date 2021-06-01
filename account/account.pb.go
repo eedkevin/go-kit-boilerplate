@@ -140,23 +140,23 @@ func (m *StatusResponse) GetStatus() ServiceStatus {
 	return ServiceStatus_FAIL
 }
 
-type AuthLoginRequest struct {
+type AuthTokenRequest struct {
 	Username string `protobuf:"bytes,1,opt,name=username,proto3" json:"username,omitempty"`
 	Password string `protobuf:"bytes,2,opt,name=password,proto3" json:"password,omitempty"`
 }
 
-func (m *AuthLoginRequest) Reset()         { *m = AuthLoginRequest{} }
-func (m *AuthLoginRequest) String() string { return proto.CompactTextString(m) }
-func (*AuthLoginRequest) ProtoMessage()    {}
-func (*AuthLoginRequest) Descriptor() ([]byte, []int) {
+func (m *AuthTokenRequest) Reset()         { *m = AuthTokenRequest{} }
+func (m *AuthTokenRequest) String() string { return proto.CompactTextString(m) }
+func (*AuthTokenRequest) ProtoMessage()    {}
+func (*AuthTokenRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_8e28828dcb8d24f0, []int{2}
 }
-func (m *AuthLoginRequest) XXX_Unmarshal(b []byte) error {
+func (m *AuthTokenRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *AuthLoginRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *AuthTokenRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_AuthLoginRequest.Marshal(b, m, deterministic)
+		return xxx_messageInfo_AuthTokenRequest.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalTo(b)
@@ -166,48 +166,48 @@ func (m *AuthLoginRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, er
 		return b[:n], nil
 	}
 }
-func (m *AuthLoginRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_AuthLoginRequest.Merge(m, src)
+func (m *AuthTokenRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AuthTokenRequest.Merge(m, src)
 }
-func (m *AuthLoginRequest) XXX_Size() int {
+func (m *AuthTokenRequest) XXX_Size() int {
 	return m.Size()
 }
-func (m *AuthLoginRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_AuthLoginRequest.DiscardUnknown(m)
+func (m *AuthTokenRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_AuthTokenRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_AuthLoginRequest proto.InternalMessageInfo
+var xxx_messageInfo_AuthTokenRequest proto.InternalMessageInfo
 
-func (m *AuthLoginRequest) GetUsername() string {
+func (m *AuthTokenRequest) GetUsername() string {
 	if m != nil {
 		return m.Username
 	}
 	return ""
 }
 
-func (m *AuthLoginRequest) GetPassword() string {
+func (m *AuthTokenRequest) GetPassword() string {
 	if m != nil {
 		return m.Password
 	}
 	return ""
 }
 
-type AuthLoginResponse struct {
+type AuthTokenResponse struct {
 	Token string `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"`
 }
 
-func (m *AuthLoginResponse) Reset()         { *m = AuthLoginResponse{} }
-func (m *AuthLoginResponse) String() string { return proto.CompactTextString(m) }
-func (*AuthLoginResponse) ProtoMessage()    {}
-func (*AuthLoginResponse) Descriptor() ([]byte, []int) {
+func (m *AuthTokenResponse) Reset()         { *m = AuthTokenResponse{} }
+func (m *AuthTokenResponse) String() string { return proto.CompactTextString(m) }
+func (*AuthTokenResponse) ProtoMessage()    {}
+func (*AuthTokenResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_8e28828dcb8d24f0, []int{3}
 }
-func (m *AuthLoginResponse) XXX_Unmarshal(b []byte) error {
+func (m *AuthTokenResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *AuthLoginResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *AuthTokenResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_AuthLoginResponse.Marshal(b, m, deterministic)
+		return xxx_messageInfo_AuthTokenResponse.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalTo(b)
@@ -217,61 +217,155 @@ func (m *AuthLoginResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, e
 		return b[:n], nil
 	}
 }
-func (m *AuthLoginResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_AuthLoginResponse.Merge(m, src)
+func (m *AuthTokenResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AuthTokenResponse.Merge(m, src)
 }
-func (m *AuthLoginResponse) XXX_Size() int {
+func (m *AuthTokenResponse) XXX_Size() int {
 	return m.Size()
 }
-func (m *AuthLoginResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_AuthLoginResponse.DiscardUnknown(m)
+func (m *AuthTokenResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_AuthTokenResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_AuthLoginResponse proto.InternalMessageInfo
+var xxx_messageInfo_AuthTokenResponse proto.InternalMessageInfo
 
-func (m *AuthLoginResponse) GetToken() string {
+func (m *AuthTokenResponse) GetToken() string {
 	if m != nil {
 		return m.Token
 	}
 	return ""
 }
 
+type AuthTokenValidateRequest struct {
+	Token string `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"`
+}
+
+func (m *AuthTokenValidateRequest) Reset()         { *m = AuthTokenValidateRequest{} }
+func (m *AuthTokenValidateRequest) String() string { return proto.CompactTextString(m) }
+func (*AuthTokenValidateRequest) ProtoMessage()    {}
+func (*AuthTokenValidateRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8e28828dcb8d24f0, []int{4}
+}
+func (m *AuthTokenValidateRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *AuthTokenValidateRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_AuthTokenValidateRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalTo(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *AuthTokenValidateRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AuthTokenValidateRequest.Merge(m, src)
+}
+func (m *AuthTokenValidateRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *AuthTokenValidateRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_AuthTokenValidateRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_AuthTokenValidateRequest proto.InternalMessageInfo
+
+func (m *AuthTokenValidateRequest) GetToken() string {
+	if m != nil {
+		return m.Token
+	}
+	return ""
+}
+
+type AuthTokenValidateResponse struct {
+	IsValid bool `protobuf:"varint,2,opt,name=is_valid,json=isValid,proto3" json:"is_valid,omitempty"`
+}
+
+func (m *AuthTokenValidateResponse) Reset()         { *m = AuthTokenValidateResponse{} }
+func (m *AuthTokenValidateResponse) String() string { return proto.CompactTextString(m) }
+func (*AuthTokenValidateResponse) ProtoMessage()    {}
+func (*AuthTokenValidateResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8e28828dcb8d24f0, []int{5}
+}
+func (m *AuthTokenValidateResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *AuthTokenValidateResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_AuthTokenValidateResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalTo(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *AuthTokenValidateResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AuthTokenValidateResponse.Merge(m, src)
+}
+func (m *AuthTokenValidateResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *AuthTokenValidateResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_AuthTokenValidateResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_AuthTokenValidateResponse proto.InternalMessageInfo
+
+func (m *AuthTokenValidateResponse) GetIsValid() bool {
+	if m != nil {
+		return m.IsValid
+	}
+	return false
+}
+
 func init() {
 	proto.RegisterEnum("account.ServiceStatus", ServiceStatus_name, ServiceStatus_value)
 	proto.RegisterType((*StatusRequest)(nil), "account.StatusRequest")
 	proto.RegisterType((*StatusResponse)(nil), "account.StatusResponse")
-	proto.RegisterType((*AuthLoginRequest)(nil), "account.AuthLoginRequest")
-	proto.RegisterType((*AuthLoginResponse)(nil), "account.AuthLoginResponse")
+	proto.RegisterType((*AuthTokenRequest)(nil), "account.AuthTokenRequest")
+	proto.RegisterType((*AuthTokenResponse)(nil), "account.AuthTokenResponse")
+	proto.RegisterType((*AuthTokenValidateRequest)(nil), "account.AuthTokenValidateRequest")
+	proto.RegisterType((*AuthTokenValidateResponse)(nil), "account.AuthTokenValidateResponse")
 }
 
 func init() { proto.RegisterFile("account.proto", fileDescriptor_8e28828dcb8d24f0) }
 
 var fileDescriptor_8e28828dcb8d24f0 = []byte{
-	// 370 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x6c, 0x51, 0xcb, 0x4e, 0xe3, 0x30,
-	0x14, 0x4d, 0xaa, 0x4e, 0xda, 0x7a, 0x94, 0x4e, 0xc7, 0x33, 0x9a, 0x29, 0x59, 0x44, 0x10, 0x36,
-	0xc0, 0x22, 0x96, 0xca, 0x0f, 0x50, 0x24, 0x90, 0x28, 0x95, 0x90, 0xda, 0x05, 0x6b, 0x37, 0x75,
-	0x93, 0x88, 0xd4, 0x0e, 0xf6, 0x75, 0x11, 0x5b, 0xbe, 0x00, 0x89, 0xff, 0xe0, 0x3b, 0x58, 0x56,
-	0x62, 0xc3, 0x12, 0xb5, 0x7c, 0x08, 0x6a, 0x1e, 0x55, 0x79, 0xec, 0x7c, 0xee, 0x39, 0x3e, 0xf7,
-	0xdc, 0x7b, 0x91, 0x4d, 0x83, 0x40, 0x68, 0x0e, 0x7e, 0x2a, 0x05, 0x08, 0x5c, 0x2b, 0xa0, 0x73,
-	0x12, 0xc6, 0x10, 0xe9, 0x91, 0x1f, 0x88, 0x29, 0x99, 0x32, 0xa0, 0x33, 0x26, 0x15, 0x23, 0x20,
-	0xb5, 0x52, 0x64, 0xcc, 0x26, 0x20, 0x19, 0x23, 0xa1, 0x10, 0x61, 0xc2, 0x20, 0x8a, 0xe5, 0x38,
-	0xa5, 0x12, 0x6e, 0x09, 0xe5, 0x5c, 0x00, 0x85, 0x58, 0x70, 0x95, 0xfb, 0x79, 0xbb, 0xc8, 0x1e,
-	0x02, 0x05, 0xad, 0x06, 0xec, 0x5a, 0x33, 0x05, 0x18, 0xa3, 0xea, 0x44, 0x27, 0x49, 0xdb, 0xdc,
-	0x36, 0xf7, 0xea, 0x83, 0xec, 0xed, 0x1d, 0xa1, 0x66, 0x29, 0x52, 0xa9, 0xe0, 0x8a, 0x61, 0x1f,
-	0x59, 0x2a, 0xab, 0x64, 0xba, 0x66, 0xe7, 0x9f, 0x5f, 0xc6, 0x1c, 0x32, 0x39, 0x8b, 0x03, 0x56,
-	0xe8, 0x0b, 0x95, 0xd7, 0x43, 0xad, 0xae, 0x86, 0xa8, 0x2f, 0xc2, 0x98, 0x97, 0x9d, 0x1c, 0x54,
-	0xd7, 0x8a, 0x49, 0x4e, 0xa7, 0x2c, 0x73, 0x69, 0x0c, 0xd6, 0x78, 0xc5, 0xa5, 0x54, 0xa9, 0x1b,
-	0x21, 0xc7, 0xed, 0x4a, 0xce, 0x95, 0xd8, 0xdb, 0x47, 0xbf, 0x37, 0xbc, 0x8a, 0x40, 0x7f, 0xd1,
-	0x0f, 0x10, 0x57, 0x8c, 0x17, 0x4e, 0x39, 0x38, 0xd8, 0x41, 0xf6, 0x87, 0x3c, 0xb8, 0x8e, 0xaa,
-	0xa7, 0xdd, 0xb3, 0x7e, 0xcb, 0xc0, 0x16, 0xaa, 0x5c, 0x9c, 0xb7, 0xcc, 0xce, 0xa3, 0x89, 0x6a,
-	0xdd, 0x3c, 0x3b, 0xee, 0x21, 0xab, 0xd0, 0x6d, 0xcc, 0xb3, 0xb9, 0x1d, 0xe7, 0xff, 0x97, 0x7a,
-	0xde, 0xdf, 0xfb, 0x75, 0xf7, 0xfc, 0xf6, 0x50, 0x69, 0xe0, 0x1a, 0xc9, 0x27, 0xc6, 0x97, 0xa8,
-	0xb1, 0x4e, 0x89, 0xb7, 0xd6, 0xdf, 0x3e, 0x6f, 0xc1, 0x71, 0xbe, 0xa3, 0x0a, 0xd3, 0x3f, 0x99,
-	0xa9, 0xed, 0xfd, 0x24, 0x54, 0x43, 0x44, 0x92, 0x15, 0x79, 0xdc, 0x7e, 0x5a, 0xb8, 0xe6, 0x7c,
-	0xe1, 0x9a, 0xaf, 0x0b, 0xd7, 0xbc, 0x5f, 0xba, 0xc6, 0x7c, 0xe9, 0x1a, 0x2f, 0x4b, 0xd7, 0x18,
-	0x59, 0xd9, 0x49, 0x0f, 0xdf, 0x03, 0x00, 0x00, 0xff, 0xff, 0x6c, 0xbe, 0x1b, 0xc4, 0x33, 0x02,
-	0x00, 0x00,
+	// 437 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x7c, 0x92, 0x41, 0x8b, 0xd3, 0x40,
+	0x14, 0xc7, 0x9b, 0xb2, 0xb6, 0xe9, 0x93, 0xae, 0x75, 0x5c, 0xd6, 0x36, 0x48, 0x70, 0xc7, 0x8b,
+	0x7a, 0xe8, 0xc8, 0x0a, 0x9e, 0xad, 0xa0, 0xe0, 0x2a, 0x08, 0x5d, 0xd1, 0xa3, 0xcc, 0xb6, 0x6f,
+	0xdb, 0x60, 0x9b, 0x89, 0x33, 0x6f, 0xa2, 0x5e, 0xfd, 0x04, 0x82, 0x5f, 0xc2, 0x8f, 0xe2, 0x71,
+	0xc1, 0x8b, 0x47, 0x69, 0xfd, 0x20, 0xd2, 0xc9, 0x24, 0xc4, 0x6d, 0xf1, 0x96, 0xf7, 0xde, 0xef,
+	0xfd, 0xff, 0x2f, 0xff, 0x04, 0xba, 0x72, 0x32, 0x51, 0x36, 0xa5, 0x61, 0xa6, 0x15, 0x29, 0xd6,
+	0xf6, 0x65, 0xf4, 0x74, 0x96, 0xd0, 0xdc, 0x9e, 0x0d, 0x27, 0x6a, 0x29, 0x96, 0x48, 0x32, 0x47,
+	0x6d, 0x50, 0x90, 0xb6, 0xc6, 0x88, 0x29, 0x9e, 0x93, 0x46, 0x14, 0x33, 0xa5, 0x66, 0x0b, 0xa4,
+	0x79, 0xa2, 0xa7, 0x99, 0xd4, 0xf4, 0x59, 0xc8, 0x34, 0x55, 0x24, 0x29, 0x51, 0xa9, 0x29, 0xf4,
+	0xf8, 0x1d, 0xe8, 0x9e, 0x92, 0x24, 0x6b, 0xc6, 0xf8, 0xc1, 0xa2, 0x21, 0xc6, 0x60, 0xef, 0xdc,
+	0x2e, 0x16, 0xfd, 0xe0, 0x76, 0x70, 0x37, 0x1c, 0xbb, 0x67, 0xfe, 0x18, 0xf6, 0x4b, 0xc8, 0x64,
+	0x2a, 0x35, 0xc8, 0x86, 0xd0, 0x32, 0xae, 0xe3, 0xb8, 0xfd, 0xe3, 0xc3, 0x61, 0x79, 0xe6, 0x29,
+	0xea, 0x3c, 0x99, 0xa0, 0xe7, 0x3d, 0xc5, 0x4f, 0xa0, 0x37, 0xb2, 0x34, 0x7f, 0xad, 0xde, 0x63,
+	0x5a, 0x3a, 0x45, 0x10, 0x5a, 0x83, 0x3a, 0x95, 0x4b, 0x74, 0x2a, 0x9d, 0x71, 0x55, 0x6f, 0x66,
+	0x99, 0x34, 0xe6, 0xa3, 0xd2, 0xd3, 0x7e, 0xb3, 0x98, 0x95, 0x35, 0xbf, 0x07, 0xd7, 0x6b, 0x5a,
+	0xfe, 0xa0, 0x03, 0xb8, 0x42, 0x9b, 0x86, 0x57, 0x2a, 0x0a, 0xfe, 0x00, 0xfa, 0x15, 0xfa, 0x46,
+	0x2e, 0x92, 0xa9, 0x24, 0x2c, 0xed, 0x77, 0x6f, 0x3c, 0x82, 0xc1, 0x8e, 0x0d, 0x6f, 0x32, 0x80,
+	0x30, 0x31, 0xef, 0xf2, 0x4d, 0xdb, 0x5d, 0x15, 0x8e, 0xdb, 0x89, 0x71, 0xd4, 0xfd, 0x23, 0xe8,
+	0xfe, 0xf3, 0xe6, 0x2c, 0x84, 0xbd, 0x67, 0xa3, 0xe7, 0x2f, 0x7b, 0x0d, 0xd6, 0x82, 0xe6, 0xab,
+	0x17, 0xbd, 0xe0, 0xf8, 0x7b, 0x13, 0xda, 0xa3, 0x22, 0x25, 0x76, 0x02, 0x2d, 0xcf, 0xd5, 0x92,
+	0xab, 0x7f, 0x87, 0xe8, 0xe6, 0x56, 0xbf, 0x38, 0x82, 0x5f, 0xfb, 0xf2, 0xf3, 0xcf, 0xb7, 0x66,
+	0x87, 0xb5, 0x45, 0x91, 0x2d, 0x7b, 0x0b, 0x9d, 0xea, 0x64, 0x36, 0xa8, 0xd6, 0x2e, 0xe7, 0x1d,
+	0x45, 0xbb, 0x46, 0x5e, 0xf4, 0x86, 0x13, 0xed, 0xf2, 0xab, 0x42, 0x5a, 0x9a, 0x0b, 0x97, 0x05,
+	0xfb, 0x54, 0x0b, 0xba, 0xcc, 0x82, 0x1d, 0x6d, 0xab, 0x5c, 0x4a, 0x36, 0xe2, 0xff, 0x43, 0xbc,
+	0xe1, 0x2d, 0x67, 0x78, 0xc8, 0x0f, 0x6a, 0x86, 0x22, 0xf7, 0xd4, 0x93, 0xfe, 0x8f, 0x55, 0x1c,
+	0x5c, 0xac, 0xe2, 0xe0, 0xf7, 0x2a, 0x0e, 0xbe, 0xae, 0xe3, 0xc6, 0xc5, 0x3a, 0x6e, 0xfc, 0x5a,
+	0xc7, 0x8d, 0xb3, 0x96, 0xfb, 0x6d, 0x1f, 0xfe, 0x0d, 0x00, 0x00, 0xff, 0xff, 0x24, 0xaa, 0x1a,
+	0xed, 0x17, 0x03, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -287,7 +381,8 @@ const _ = grpc.SupportPackageIsVersion4
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type AccountClient interface {
 	Status(ctx context.Context, in *StatusRequest, opts ...grpc.CallOption) (*StatusResponse, error)
-	AuthLogin(ctx context.Context, in *AuthLoginRequest, opts ...grpc.CallOption) (*AuthLoginResponse, error)
+	AuthToken(ctx context.Context, in *AuthTokenRequest, opts ...grpc.CallOption) (*AuthTokenResponse, error)
+	AuthTokenValidate(ctx context.Context, in *AuthTokenValidateRequest, opts ...grpc.CallOption) (*AuthTokenValidateResponse, error)
 }
 
 type accountClient struct {
@@ -307,9 +402,18 @@ func (c *accountClient) Status(ctx context.Context, in *StatusRequest, opts ...g
 	return out, nil
 }
 
-func (c *accountClient) AuthLogin(ctx context.Context, in *AuthLoginRequest, opts ...grpc.CallOption) (*AuthLoginResponse, error) {
-	out := new(AuthLoginResponse)
-	err := c.cc.Invoke(ctx, "/account.Account/AuthLogin", in, out, opts...)
+func (c *accountClient) AuthToken(ctx context.Context, in *AuthTokenRequest, opts ...grpc.CallOption) (*AuthTokenResponse, error) {
+	out := new(AuthTokenResponse)
+	err := c.cc.Invoke(ctx, "/account.Account/AuthToken", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *accountClient) AuthTokenValidate(ctx context.Context, in *AuthTokenValidateRequest, opts ...grpc.CallOption) (*AuthTokenValidateResponse, error) {
+	out := new(AuthTokenValidateResponse)
+	err := c.cc.Invoke(ctx, "/account.Account/AuthTokenValidate", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -319,7 +423,8 @@ func (c *accountClient) AuthLogin(ctx context.Context, in *AuthLoginRequest, opt
 // AccountServer is the server API for Account service.
 type AccountServer interface {
 	Status(context.Context, *StatusRequest) (*StatusResponse, error)
-	AuthLogin(context.Context, *AuthLoginRequest) (*AuthLoginResponse, error)
+	AuthToken(context.Context, *AuthTokenRequest) (*AuthTokenResponse, error)
+	AuthTokenValidate(context.Context, *AuthTokenValidateRequest) (*AuthTokenValidateResponse, error)
 }
 
 // UnimplementedAccountServer can be embedded to have forward compatible implementations.
@@ -329,8 +434,11 @@ type UnimplementedAccountServer struct {
 func (*UnimplementedAccountServer) Status(ctx context.Context, req *StatusRequest) (*StatusResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Status not implemented")
 }
-func (*UnimplementedAccountServer) AuthLogin(ctx context.Context, req *AuthLoginRequest) (*AuthLoginResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AuthLogin not implemented")
+func (*UnimplementedAccountServer) AuthToken(ctx context.Context, req *AuthTokenRequest) (*AuthTokenResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AuthToken not implemented")
+}
+func (*UnimplementedAccountServer) AuthTokenValidate(ctx context.Context, req *AuthTokenValidateRequest) (*AuthTokenValidateResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AuthTokenValidate not implemented")
 }
 
 func RegisterAccountServer(s *grpc.Server, srv AccountServer) {
@@ -355,20 +463,38 @@ func _Account_Status_Handler(srv interface{}, ctx context.Context, dec func(inte
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Account_AuthLogin_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AuthLoginRequest)
+func _Account_AuthToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AuthTokenRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AccountServer).AuthLogin(ctx, in)
+		return srv.(AccountServer).AuthToken(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/account.Account/AuthLogin",
+		FullMethod: "/account.Account/AuthToken",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AccountServer).AuthLogin(ctx, req.(*AuthLoginRequest))
+		return srv.(AccountServer).AuthToken(ctx, req.(*AuthTokenRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Account_AuthTokenValidate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AuthTokenValidateRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountServer).AuthTokenValidate(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/account.Account/AuthTokenValidate",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountServer).AuthTokenValidate(ctx, req.(*AuthTokenValidateRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -382,8 +508,12 @@ var _Account_serviceDesc = grpc.ServiceDesc{
 			Handler:    _Account_Status_Handler,
 		},
 		{
-			MethodName: "AuthLogin",
-			Handler:    _Account_AuthLogin_Handler,
+			MethodName: "AuthToken",
+			Handler:    _Account_AuthToken_Handler,
+		},
+		{
+			MethodName: "AuthTokenValidate",
+			Handler:    _Account_AuthTokenValidate_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -441,7 +571,7 @@ func (m *StatusResponse) MarshalTo(dAtA []byte) (int, error) {
 	return i, nil
 }
 
-func (m *AuthLoginRequest) Marshal() (dAtA []byte, err error) {
+func (m *AuthTokenRequest) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -451,7 +581,7 @@ func (m *AuthLoginRequest) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *AuthLoginRequest) MarshalTo(dAtA []byte) (int, error) {
+func (m *AuthTokenRequest) MarshalTo(dAtA []byte) (int, error) {
 	var i int
 	_ = i
 	var l int
@@ -471,7 +601,7 @@ func (m *AuthLoginRequest) MarshalTo(dAtA []byte) (int, error) {
 	return i, nil
 }
 
-func (m *AuthLoginResponse) Marshal() (dAtA []byte, err error) {
+func (m *AuthTokenResponse) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -481,7 +611,7 @@ func (m *AuthLoginResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *AuthLoginResponse) MarshalTo(dAtA []byte) (int, error) {
+func (m *AuthTokenResponse) MarshalTo(dAtA []byte) (int, error) {
 	var i int
 	_ = i
 	var l int
@@ -491,6 +621,58 @@ func (m *AuthLoginResponse) MarshalTo(dAtA []byte) (int, error) {
 		i++
 		i = encodeVarintAccount(dAtA, i, uint64(len(m.Token)))
 		i += copy(dAtA[i:], m.Token)
+	}
+	return i, nil
+}
+
+func (m *AuthTokenValidateRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalTo(dAtA)
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *AuthTokenValidateRequest) MarshalTo(dAtA []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if len(m.Token) > 0 {
+		dAtA[i] = 0xa
+		i++
+		i = encodeVarintAccount(dAtA, i, uint64(len(m.Token)))
+		i += copy(dAtA[i:], m.Token)
+	}
+	return i, nil
+}
+
+func (m *AuthTokenValidateResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalTo(dAtA)
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *AuthTokenValidateResponse) MarshalTo(dAtA []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if m.IsValid {
+		dAtA[i] = 0x10
+		i++
+		if m.IsValid {
+			dAtA[i] = 1
+		} else {
+			dAtA[i] = 0
+		}
+		i++
 	}
 	return i, nil
 }
@@ -528,7 +710,7 @@ func (m *StatusResponse) Size() (n int) {
 	return n
 }
 
-func (m *AuthLoginRequest) Size() (n int) {
+func (m *AuthTokenRequest) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -545,7 +727,7 @@ func (m *AuthLoginRequest) Size() (n int) {
 	return n
 }
 
-func (m *AuthLoginResponse) Size() (n int) {
+func (m *AuthTokenResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -554,6 +736,31 @@ func (m *AuthLoginResponse) Size() (n int) {
 	l = len(m.Token)
 	if l > 0 {
 		n += 1 + l + sovAccount(uint64(l))
+	}
+	return n
+}
+
+func (m *AuthTokenValidateRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Token)
+	if l > 0 {
+		n += 1 + l + sovAccount(uint64(l))
+	}
+	return n
+}
+
+func (m *AuthTokenValidateResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.IsValid {
+		n += 2
 	}
 	return n
 }
@@ -709,7 +916,7 @@ func (m *StatusResponse) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *AuthLoginRequest) Unmarshal(dAtA []byte) error {
+func (m *AuthTokenRequest) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -732,10 +939,10 @@ func (m *AuthLoginRequest) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: AuthLoginRequest: wiretype end group for non-group")
+			return fmt.Errorf("proto: AuthTokenRequest: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: AuthLoginRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: AuthTokenRequest: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
@@ -826,7 +1033,7 @@ func (m *AuthLoginRequest) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *AuthLoginResponse) Unmarshal(dAtA []byte) error {
+func (m *AuthTokenResponse) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -849,10 +1056,10 @@ func (m *AuthLoginResponse) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: AuthLoginResponse: wiretype end group for non-group")
+			return fmt.Errorf("proto: AuthTokenResponse: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: AuthLoginResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: AuthTokenResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
@@ -887,6 +1094,164 @@ func (m *AuthLoginResponse) Unmarshal(dAtA []byte) error {
 			}
 			m.Token = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipAccount(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthAccount
+			}
+			if (iNdEx + skippy) < 0 {
+				return ErrInvalidLengthAccount
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *AuthTokenValidateRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowAccount
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: AuthTokenValidateRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: AuthTokenValidateRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Token", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAccount
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAccount
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthAccount
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Token = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipAccount(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthAccount
+			}
+			if (iNdEx + skippy) < 0 {
+				return ErrInvalidLengthAccount
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *AuthTokenValidateResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowAccount
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: AuthTokenValidateResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: AuthTokenValidateResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 2:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field IsValid", wireType)
+			}
+			var v int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAccount
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				v |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			m.IsValid = bool(v != 0)
 		default:
 			iNdEx = preIndex
 			skippy, err := skipAccount(dAtA[iNdEx:])

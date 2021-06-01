@@ -33,8 +33,9 @@ import (
 // single type that implements the Service interface. For example, you might
 // construct individual endpoints using transport/http.NewClient, combine them into an Endpoints, and return it to the caller as a Service.
 type Endpoints struct {
-	StatusEndpoint    endpoint.Endpoint
-	AuthLoginEndpoint endpoint.Endpoint
+	StatusEndpoint            endpoint.Endpoint
+	AuthTokenEndpoint         endpoint.Endpoint
+	AuthTokenValidateEndpoint endpoint.Endpoint
 }
 
 // Endpoints
@@ -47,12 +48,20 @@ func (e Endpoints) Status(ctx context.Context, in *pb.StatusRequest) (*pb.Status
 	return response.(*pb.StatusResponse), nil
 }
 
-func (e Endpoints) AuthLogin(ctx context.Context, in *pb.AuthLoginRequest) (*pb.AuthLoginResponse, error) {
-	response, err := e.AuthLoginEndpoint(ctx, in)
+func (e Endpoints) AuthToken(ctx context.Context, in *pb.AuthTokenRequest) (*pb.AuthTokenResponse, error) {
+	response, err := e.AuthTokenEndpoint(ctx, in)
 	if err != nil {
 		return nil, err
 	}
-	return response.(*pb.AuthLoginResponse), nil
+	return response.(*pb.AuthTokenResponse), nil
+}
+
+func (e Endpoints) AuthTokenValidate(ctx context.Context, in *pb.AuthTokenValidateRequest) (*pb.AuthTokenValidateResponse, error) {
+	response, err := e.AuthTokenValidateEndpoint(ctx, in)
+	if err != nil {
+		return nil, err
+	}
+	return response.(*pb.AuthTokenValidateResponse), nil
 }
 
 // Make Endpoints
@@ -68,10 +77,21 @@ func MakeStatusEndpoint(s pb.AccountServer) endpoint.Endpoint {
 	}
 }
 
-func MakeAuthLoginEndpoint(s pb.AccountServer) endpoint.Endpoint {
+func MakeAuthTokenEndpoint(s pb.AccountServer) endpoint.Endpoint {
 	return func(ctx context.Context, request interface{}) (response interface{}, err error) {
-		req := request.(*pb.AuthLoginRequest)
-		v, err := s.AuthLogin(ctx, req)
+		req := request.(*pb.AuthTokenRequest)
+		v, err := s.AuthToken(ctx, req)
+		if err != nil {
+			return nil, err
+		}
+		return v, nil
+	}
+}
+
+func MakeAuthTokenValidateEndpoint(s pb.AccountServer) endpoint.Endpoint {
+	return func(ctx context.Context, request interface{}) (response interface{}, err error) {
+		req := request.(*pb.AuthTokenValidateRequest)
+		v, err := s.AuthTokenValidate(ctx, req)
 		if err != nil {
 			return nil, err
 		}
@@ -86,8 +106,9 @@ func MakeAuthLoginEndpoint(s pb.AccountServer) endpoint.Endpoint {
 // WrapAllExcept(middleware, "Status", "Ping")
 func (e *Endpoints) WrapAllExcept(middleware endpoint.Middleware, excluded ...string) {
 	included := map[string]struct{}{
-		"Status":    {},
-		"AuthLogin": {},
+		"Status":            {},
+		"AuthToken":         {},
+		"AuthTokenValidate": {},
 	}
 
 	for _, ex := range excluded {
@@ -101,8 +122,11 @@ func (e *Endpoints) WrapAllExcept(middleware endpoint.Middleware, excluded ...st
 		if inc == "Status" {
 			e.StatusEndpoint = middleware(e.StatusEndpoint)
 		}
-		if inc == "AuthLogin" {
-			e.AuthLoginEndpoint = middleware(e.AuthLoginEndpoint)
+		if inc == "AuthToken" {
+			e.AuthTokenEndpoint = middleware(e.AuthTokenEndpoint)
+		}
+		if inc == "AuthTokenValidate" {
+			e.AuthTokenValidateEndpoint = middleware(e.AuthTokenValidateEndpoint)
 		}
 	}
 }
@@ -118,8 +142,9 @@ type LabeledMiddleware func(string, endpoint.Endpoint) endpoint.Endpoint
 // functionality.
 func (e *Endpoints) WrapAllLabeledExcept(middleware func(string, endpoint.Endpoint) endpoint.Endpoint, excluded ...string) {
 	included := map[string]struct{}{
-		"Status":    {},
-		"AuthLogin": {},
+		"Status":            {},
+		"AuthToken":         {},
+		"AuthTokenValidate": {},
 	}
 
 	for _, ex := range excluded {
@@ -133,8 +158,11 @@ func (e *Endpoints) WrapAllLabeledExcept(middleware func(string, endpoint.Endpoi
 		if inc == "Status" {
 			e.StatusEndpoint = middleware("Status", e.StatusEndpoint)
 		}
-		if inc == "AuthLogin" {
-			e.AuthLoginEndpoint = middleware("AuthLogin", e.AuthLoginEndpoint)
+		if inc == "AuthToken" {
+			e.AuthTokenEndpoint = middleware("AuthToken", e.AuthTokenEndpoint)
+		}
+		if inc == "AuthTokenValidate" {
+			e.AuthTokenValidateEndpoint = middleware("AuthTokenValidate", e.AuthTokenValidateEndpoint)
 		}
 	}
 }

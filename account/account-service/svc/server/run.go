@@ -60,13 +60,15 @@ func NewEndpoints(service pb.AccountServer) svc.Endpoints {
 
 	// Endpoint domain.
 	var (
-		statusEndpoint    = svc.MakeStatusEndpoint(service)
-		authloginEndpoint = svc.MakeAuthLoginEndpoint(service)
+		statusEndpoint            = svc.MakeStatusEndpoint(service)
+		authtokenEndpoint         = svc.MakeAuthTokenEndpoint(service)
+		authtokenvalidateEndpoint = svc.MakeAuthTokenValidateEndpoint(service)
 	)
 
 	endpoints := svc.Endpoints{
-		StatusEndpoint:    statusEndpoint,
-		AuthLoginEndpoint: authloginEndpoint,
+		StatusEndpoint:            statusEndpoint,
+		AuthTokenEndpoint:         authtokenEndpoint,
+		AuthTokenValidateEndpoint: authtokenvalidateEndpoint,
 	}
 
 	// Wrap selected Endpoints with middlewares. See handlers/middlewares.go

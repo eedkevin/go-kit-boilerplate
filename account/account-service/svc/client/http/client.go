@@ -60,20 +60,31 @@ func New(instance string, options ...httptransport.ClientOption) (pb.AccountServ
 			options...,
 		).Endpoint()
 	}
-	var AuthLoginZeroEndpoint endpoint.Endpoint
+	var AuthTokenZeroEndpoint endpoint.Endpoint
 	{
-		AuthLoginZeroEndpoint = httptransport.NewClient(
+		AuthTokenZeroEndpoint = httptransport.NewClient(
 			"POST",
-			copyURL(u, "/auth/login"),
-			EncodeHTTPAuthLoginZeroRequest,
-			DecodeHTTPAuthLoginResponse,
+			copyURL(u, "/auth/token"),
+			EncodeHTTPAuthTokenZeroRequest,
+			DecodeHTTPAuthTokenResponse,
+			options...,
+		).Endpoint()
+	}
+	var AuthTokenValidateZeroEndpoint endpoint.Endpoint
+	{
+		AuthTokenValidateZeroEndpoint = httptransport.NewClient(
+			"POST",
+			copyURL(u, "/auth/token/validate"),
+			EncodeHTTPAuthTokenValidateZeroRequest,
+			DecodeHTTPAuthTokenValidateResponse,
 			options...,
 		).Endpoint()
 	}
 
 	return svc.Endpoints{
-		StatusEndpoint:    StatusZeroEndpoint,
-		AuthLoginEndpoint: AuthLoginZeroEndpoint,
+		StatusEndpoint:            StatusZeroEndpoint,
+		AuthTokenEndpoint:         AuthTokenZeroEndpoint,
+		AuthTokenValidateEndpoint: AuthTokenValidateZeroEndpoint,
 	}, nil
 }
 
@@ -127,12 +138,12 @@ func DecodeHTTPStatusResponse(_ context.Context, r *http.Response) (interface{},
 	return &resp, nil
 }
 
-// DecodeHTTPAuthLoginResponse is a transport/http.DecodeResponseFunc that decodes
-// a JSON-encoded AuthLoginResponse response from the HTTP response body.
+// DecodeHTTPAuthTokenResponse is a transport/http.DecodeResponseFunc that decodes
+// a JSON-encoded AuthTokenResponse response from the HTTP response body.
 // If the response has a non-200 status code, we will interpret that as an
 // error and attempt to decode the specific error message from the response
 // body. Primarily useful in a client.
-func DecodeHTTPAuthLoginResponse(_ context.Context, r *http.Response) (interface{}, error) {
+func DecodeHTTPAuthTokenResponse(_ context.Context, r *http.Response) (interface{}, error) {
 	defer r.Body.Close()
 	buf, err := ioutil.ReadAll(r.Body)
 	if err == io.EOF {
@@ -146,7 +157,34 @@ func DecodeHTTPAuthLoginResponse(_ context.Context, r *http.Response) (interface
 		return nil, errors.Wrapf(errorDecoder(buf), "status code: '%d'", r.StatusCode)
 	}
 
-	var resp pb.AuthLoginResponse
+	var resp pb.AuthTokenResponse
+	if err = jsonpb.UnmarshalString(string(buf), &resp); err != nil {
+		return nil, errorDecoder(buf)
+	}
+
+	return &resp, nil
+}
+
+// DecodeHTTPAuthTokenValidateResponse is a transport/http.DecodeResponseFunc that decodes
+// a JSON-encoded AuthTokenValidateResponse response from the HTTP response body.
+// If the response has a non-200 status code, we will interpret that as an
+// error and attempt to decode the specific error message from the response
+// body. Primarily useful in a client.
+func DecodeHTTPAuthTokenValidateResponse(_ context.Context, r *http.Response) (interface{}, error) {
+	defer r.Body.Close()
+	buf, err := ioutil.ReadAll(r.Body)
+	if err == io.EOF {
+		return nil, errors.New("response http body empty")
+	}
+	if err != nil {
+		return nil, errors.Wrap(err, "cannot read http body")
+	}
+
+	if r.StatusCode != http.StatusOK {
+		return nil, errors.Wrapf(errorDecoder(buf), "status code: '%d'", r.StatusCode)
+	}
+
+	var resp pb.AuthTokenValidateResponse
 	if err = jsonpb.UnmarshalString(string(buf), &resp); err != nil {
 		return nil, errorDecoder(buf)
 	}
@@ -191,13 +229,13 @@ func EncodeHTTPStatusZeroRequest(_ context.Context, r *http.Request, request int
 	return nil
 }
 
-// EncodeHTTPAuthLoginZeroRequest is a transport/http.EncodeRequestFunc
-// that encodes a authlogin request into the various portions of
+// EncodeHTTPAuthTokenZeroRequest is a transport/http.EncodeRequestFunc
+// that encodes a authtoken request into the various portions of
 // the http request (path, query, and body).
-func EncodeHTTPAuthLoginZeroRequest(_ context.Context, r *http.Request, request interface{}) error {
+func EncodeHTTPAuthTokenZeroRequest(_ context.Context, r *http.Request, request interface{}) error {
 	strval := ""
 	_ = strval
-	req := request.(*pb.AuthLoginRequest)
+	req := request.(*pb.AuthTokenRequest)
 	_ = req
 
 	r.Header.Set("transport", "HTTPJSON")
@@ -207,7 +245,7 @@ func EncodeHTTPAuthLoginZeroRequest(_ context.Context, r *http.Request, request 
 	path := strings.Join([]string{
 		"",
 		"auth",
-		"login",
+		"token",
 	}, "/")
 	u, err := url.Parse(path)
 	if err != nil {
@@ -228,7 +266,53 @@ func EncodeHTTPAuthLoginZeroRequest(_ context.Context, r *http.Request, request 
 	r.URL.RawQuery = values.Encode()
 	// Set the body parameters
 	var buf bytes.Buffer
-	toRet := request.(*pb.AuthLoginRequest)
+	toRet := request.(*pb.AuthTokenRequest)
+	encoder := json.NewEncoder(&buf)
+	encoder.SetEscapeHTML(false)
+	if err := encoder.Encode(toRet); err != nil {
+		return errors.Wrapf(err, "couldn't encode body as json %v", toRet)
+	}
+	r.Body = ioutil.NopCloser(&buf)
+	return nil
+}
+
+// EncodeHTTPAuthTokenValidateZeroRequest is a transport/http.EncodeRequestFunc
+// that encodes a authtokenvalidate request into the various portions of
+// the http request (path, query, and body).
+func EncodeHTTPAuthTokenValidateZeroRequest(_ context.Context, r *http.Request, request interface{}) error {
+	strval := ""
+	_ = strval
+	req := request.(*pb.AuthTokenValidateRequest)
+	_ = req
+
+	r.Header.Set("transport", "HTTPJSON")
+	r.Header.Set("request-url", r.URL.Path)
+
+	// Set the path parameters
+	path := strings.Join([]string{
+		"",
+		"auth",
+		"token",
+		"validate",
+	}, "/")
+	u, err := url.Parse(path)
+	if err != nil {
+		return errors.Wrapf(err, "couldn't unmarshal path %q", path)
+	}
+	r.URL.RawPath = u.RawPath
+	r.URL.Path = u.Path
+
+	// Set the query parameters
+	values := r.URL.Query()
+	var tmp []byte
+	_ = tmp
+
+	values.Add("token", fmt.Sprint(req.Token))
+
+	r.URL.RawQuery = values.Encode()
+	// Set the body parameters
+	var buf bytes.Buffer
+	toRet := request.(*pb.AuthTokenValidateRequest)
 	encoder := json.NewEncoder(&buf)
 	encoder.SetEscapeHTML(false)
 	if err := encoder.Encode(toRet); err != nil {
