@@ -1,7 +1,9 @@
 define genAllProto
 	for dir in * ; do \
 		if [ -d $$dir ]; then \
-			cd $$dir && truss *.proto && cd - ; \
+		  if [[ -n $$(find . -type f -name *.proto ) ]]; then \
+				cd $$dir && truss --svcout . *.proto && cd - ; \
+			fi \
 		fi \
 	done
 endef

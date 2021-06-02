@@ -15,12 +15,14 @@ service Account {
   rpc AuthToken(AuthTokenRequest) returns (AuthTokenResponse) {
     option (google.api.http) = {
       post: "/auth/token"
+      body: "*"
     };
   }
 
   rpc AuthTokenValidate(AuthTokenValidateRequest) returns (AuthTokenValidateResponse) {
     option (google.api.http) = {
       post: "/auth/token/validate"
+      body: "*"
     };
   }
 

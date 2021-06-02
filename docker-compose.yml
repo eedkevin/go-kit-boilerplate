@@ -20,6 +20,9 @@ services:
     build:
       context: ./echo
       dockerfile: Dockerfile
+      args:
+        APP_NAME: echo
+        GOPROXY: https://goproxy.cn,direct
     networks:
       - go-kit-boilerplate
 
@@ -27,6 +30,9 @@ services:
     build:
       context: ./account
       dockerfile: Dockerfile
+      args:
+        APP_NAME: account
+        GOPROXY: https://goproxy.cn,direct
     networks:
       - go-kit-boilerplate
 
@@ -34,6 +40,9 @@ services:
     build:
       context: ./order
       dockerfile: Dockerfile
+      args:
+        APP_NAME: order
+        GOPROXY: https://goproxy.cn,direct
     networks:
       - go-kit-boilerplate
       
@@ -41,6 +50,9 @@ services:
     build:
       context: ./geo
       dockerfile: Dockerfile
+      args:
+        APP_NAME: geo
+        GOPROXY: https://goproxy.cn,direct
     networks:
       - go-kit-boilerplate
 

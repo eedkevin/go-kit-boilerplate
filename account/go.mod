@@ -1,4 +1,4 @@
-module github.com/eedkevin/go-kit-boilerplate/account
+module account
 
 go 1.16
 
