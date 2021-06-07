@@ -4,7 +4,7 @@ import (
 	"google.golang.org/grpc"
 
 	accountPb "github.com/eedkevin/go-kit-boilerplate/account"
-	accountGrpc "github.com/eedkevin/go-kit-boilerplate/account/account-service/svc/client/grpc"
+	accountGrpc "github.com/eedkevin/go-kit-boilerplate/account/svc/client/grpc"
 )
 
 var grpcClients GRPCClients

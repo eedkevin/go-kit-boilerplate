@@ -18,9 +18,9 @@ import (
 	"google.golang.org/grpc"
 
 	// This Service
-	pb "account"
-	"account/handlers"
-	"account/svc"
+	pb "github.com/eedkevin/go-kit-boilerplate/account"
+	"github.com/eedkevin/go-kit-boilerplate/account/handlers"
+	"github.com/eedkevin/go-kit-boilerplate/account/svc"
 )
 
 var DefaultConfig Config

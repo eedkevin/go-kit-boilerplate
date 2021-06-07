@@ -3,7 +3,7 @@ package handlers
 import (
 	"context"
 
-	pb "echo"
+	pb "github.com/eedkevin/go-kit-boilerplate/echo"
 )
 
 // NewService returns a naïve, stateless implementation of Service.

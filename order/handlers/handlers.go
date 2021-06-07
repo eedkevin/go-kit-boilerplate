@@ -5,7 +5,7 @@ import (
 
 	"github.com/google/uuid"
 
-	pb "order"
+	pb "github.com/eedkevin/go-kit-boilerplate/order"
 )
 
 // NewService returns a naïve, stateless implementation of Service.

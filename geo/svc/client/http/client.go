@@ -24,8 +24,8 @@ import (
 	"github.com/pkg/errors"
 
 	// This Service
-	pb "geo"
-	"geo/svc"
+	pb "github.com/eedkevin/go-kit-boilerplate/geo"
+	"github.com/eedkevin/go-kit-boilerplate/geo/svc"
 )
 
 var (

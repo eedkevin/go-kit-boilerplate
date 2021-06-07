@@ -1,4 +1,4 @@
-module echo
+module github.com/eedkevin/go-kit-boilerplate/echo
 
 go 1.16
 

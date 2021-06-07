@@ -18,9 +18,9 @@ import (
 	"google.golang.org/grpc"
 
 	// This Service
-	pb "echo"
-	"echo/handlers"
-	"echo/svc"
+	pb "github.com/eedkevin/go-kit-boilerplate/echo"
+	"github.com/eedkevin/go-kit-boilerplate/echo/handlers"
+	"github.com/eedkevin/go-kit-boilerplate/echo/svc"
 )
 
 var DefaultConfig Config

@@ -16,7 +16,7 @@ import (
 
 	"github.com/go-kit/kit/endpoint"
 
-	pb "echo"
+	pb "github.com/eedkevin/go-kit-boilerplate/echo"
 )
 
 // Endpoints collects all of the endpoints that compose an add service. It's

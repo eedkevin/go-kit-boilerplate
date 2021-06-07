@@ -24,8 +24,8 @@ import (
 	"github.com/pkg/errors"
 
 	// This Service
-	pb "echo"
-	"echo/svc"
+	pb "github.com/eedkevin/go-kit-boilerplate/echo"
+	"github.com/eedkevin/go-kit-boilerplate/echo/svc"
 )
 
 var (

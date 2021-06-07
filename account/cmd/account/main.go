@@ -9,7 +9,7 @@ import (
 	"flag"
 
 	// This Service
-	"account/svc/server"
+	"github.com/eedkevin/go-kit-boilerplate/account/svc/server"
 )
 
 func main() {

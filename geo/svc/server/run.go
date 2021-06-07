@@ -18,9 +18,9 @@ import (
 	"google.golang.org/grpc"
 
 	// This Service
-	pb "geo"
-	"geo/handlers"
-	"geo/svc"
+	pb "github.com/eedkevin/go-kit-boilerplate/geo"
+	"github.com/eedkevin/go-kit-boilerplate/geo/handlers"
+	"github.com/eedkevin/go-kit-boilerplate/geo/svc"
 )
 
 var DefaultConfig Config

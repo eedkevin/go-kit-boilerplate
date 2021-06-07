@@ -18,9 +18,9 @@ import (
 	"google.golang.org/grpc"
 
 	// This Service
-	pb "order"
-	"order/handlers"
-	"order/svc"
+	pb "github.com/eedkevin/go-kit-boilerplate/order"
+	"github.com/eedkevin/go-kit-boilerplate/order/handlers"
+	"github.com/eedkevin/go-kit-boilerplate/order/svc"
 )
 
 var DefaultConfig Config

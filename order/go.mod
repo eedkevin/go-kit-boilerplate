@@ -1,9 +1,9 @@
-module order
+module github.com/eedkevin/go-kit-boilerplate/order
 
 go 1.16
 
 require (
-	github.com/eedkevin/go-kit-boilerplate/account v0.0.0-20210601091516-3025c0968cb7
+	github.com/eedkevin/go-kit-boilerplate/account v0.0.0-20210602014542-1322a375de2e
 	github.com/go-kit/kit v0.10.0
 	github.com/gogo/protobuf v1.3.2
 	github.com/google/uuid v1.2.0

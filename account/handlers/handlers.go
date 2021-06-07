@@ -5,7 +5,7 @@ import (
 
 	"github.com/google/uuid"
 
-	pb "account"
+	pb "github.com/eedkevin/go-kit-boilerplate/account"
 )
 
 // NewService returns a naïve, stateless implementation of Service.

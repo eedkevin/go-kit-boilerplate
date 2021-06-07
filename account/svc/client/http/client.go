@@ -24,8 +24,8 @@ import (
 	"github.com/pkg/errors"
 
 	// This Service
-	pb "account"
-	"account/svc"
+	pb "github.com/eedkevin/go-kit-boilerplate/account"
+	"github.com/eedkevin/go-kit-boilerplate/account/svc"
 )
 
 var (

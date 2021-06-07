@@ -1,4 +1,4 @@
-module geo
+module github.com/eedkevin/go-kit-boilerplate/geo
 
 go 1.16
 

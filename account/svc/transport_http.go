@@ -28,7 +28,7 @@ import (
 	"github.com/pkg/errors"
 
 	// This service
-	pb "account"
+	pb "github.com/eedkevin/go-kit-boilerplate/account"
 )
 
 const contentType = "application/json; charset=utf-8"

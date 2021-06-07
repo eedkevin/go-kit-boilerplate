@@ -2,7 +2,7 @@ package grpc
 
 import (
 	"context"
-	pb "echo"
+	pb "github.com/eedkevin/go-kit-boilerplate/echo"
 	"log"
 	"testing"
 

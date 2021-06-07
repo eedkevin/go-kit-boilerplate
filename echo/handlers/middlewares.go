@@ -1,8 +1,8 @@
 package handlers
 
 import (
-	pb "echo"
-	"echo/svc"
+	pb "github.com/eedkevin/go-kit-boilerplate/echo"
+	"github.com/eedkevin/go-kit-boilerplate/echo/svc"
 )
 
 // WrapEndpoints accepts the service's entire collection of endpoints, so that a

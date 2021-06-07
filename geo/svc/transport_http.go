@@ -28,7 +28,7 @@ import (
 	"github.com/pkg/errors"
 
 	// This service
-	pb "geo"
+	pb "github.com/eedkevin/go-kit-boilerplate/geo"
 )
 
 const contentType = "application/json; charset=utf-8"

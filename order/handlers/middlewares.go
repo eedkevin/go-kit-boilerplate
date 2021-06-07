@@ -1,8 +1,8 @@
 package handlers
 
 import (
-	pb "order"
-	"order/svc"
+	pb "github.com/eedkevin/go-kit-boilerplate/order"
+	"github.com/eedkevin/go-kit-boilerplate/order/svc"
 )
 
 // WrapEndpoints accepts the service's entire collection of endpoints, so that a

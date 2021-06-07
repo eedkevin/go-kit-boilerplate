@@ -3,7 +3,7 @@ package handlers
 import (
 	"context"
 
-	pb "geo"
+	pb "github.com/eedkevin/go-kit-boilerplate/geo"
 )
 
 // NewService returns a naïve, stateless implementation of Service.

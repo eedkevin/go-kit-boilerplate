@@ -1,8 +1,8 @@
 package handlers
 
 import (
-	pb "account"
-	"account/svc"
+	pb "github.com/eedkevin/go-kit-boilerplate/account"
+	"github.com/eedkevin/go-kit-boilerplate/account/svc"
 )
 
 // WrapEndpoints accepts the service's entire collection of endpoints, so that a

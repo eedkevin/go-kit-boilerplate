@@ -1,8 +1,8 @@
 package handlers
 
 import (
-	pb "geo"
-	"geo/svc"
+	pb "github.com/eedkevin/go-kit-boilerplate/geo"
+	"github.com/eedkevin/go-kit-boilerplate/geo/svc"
 )
 
 // WrapEndpoints accepts the service's entire collection of endpoints, so that a
