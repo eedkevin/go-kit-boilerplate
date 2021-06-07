@@ -6,6 +6,8 @@ import (
 	"strings"
 
 	"github.com/go-kit/kit/endpoint"
+
+	accountPb "github.com/eedkevin/go-kit-boilerplate/account"
 )
 
 func AuthMiddleware() endpoint.Middleware {

@@ -7,7 +7,7 @@ import (
 	accountGrpc "github.com/eedkevin/go-kit-boilerplate/account/svc/client/grpc"
 )
 
-var grpcClients GRPCClients
+var grpcClients *GRPCClients
 
 type GRPCClients struct {
 	Account accountPb.AccountServer
@@ -18,6 +18,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+	grpcClients = &GRPCClients{}
 	grpcClients.Account, err = accountGrpc.New(conn)
 	if err != nil {
 		panic(err)
