@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: mini-ldev
+  name: dev-svc
+spec:
+  selector:
+    project: dev
+    app: dev
+    namespace: mini-ldev
+  ports:
+    - name: default
+      protocol: TCP
+      port: 80
+      targetPort: 3306
+    - name: dev
+      protocol: TCP
+      port: 3306
+      targetPort: 3306

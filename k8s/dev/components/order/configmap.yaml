@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: dev
+  name: order-service-cfg
+data:
+  config.yaml: |

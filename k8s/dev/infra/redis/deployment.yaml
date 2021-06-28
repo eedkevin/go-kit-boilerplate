@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: dev
+  name: redis
+  labels:
+    project: redis
+    app: redis
+    namespace: dev
+spec:
+  selector:
+    matchLabels:
+      project: redis
+      app: redis
+      namespace: dev
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        project: redis
+        app: redis
+        namespace: dev
+    spec:
+      restartPolicy: Always
+      containers:
+        - name: redis
+          image: redis:5.0.7
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 6379
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 200m
+              memory: 256Mi
+          volumeMounts:
+            - mountPath: /redis-master-data
+              name: data-volume
+      volumes:
+        - name: data-volume
+          emptyDir: {}

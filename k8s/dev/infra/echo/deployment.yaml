@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: dev
+  name: echo
+  labels:
+    namespace: dev
+    project: infra
+    app: echo
+spec:
+  selector:
+    matchLabels:
+      namespace: dev
+      project: infra
+      app: echo
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        namespace: dev
+        project: infra
+        app: echo
+    spec:
+      restartPolicy: Always
+      containers:
+        - name: echo
+          image: jmalloc/echo-server
+          ports:
+            - containerPort: 8080
+          resources:
+            limits:
+              cpu: 200m
+              memory: 256Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          imagePullPolicy: IfNotPresent

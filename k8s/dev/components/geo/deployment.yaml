@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: dev
+  name: geo-service
+  labels:
+    project: go-kit-boilerplate
+    app: geo-service
+spec:
+  selector:
+    matchLabels:
+      namespace: dev
+      project: go-kit-boilerplate
+      app: geo-service
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        namespace: dev
+        project: go-kit-boilerplate
+        app: geo-service
+    spec:
+      restartPolicy: Always
+      containers:
+        - name: geo-service
+          image: eedkevin/go-kit-boilerplate:geo-service
+          ports:
+            - name: http
+              containerPort: 5050
+            - name: grpc
+              containerPort: 5040
+            - name: metrics
+              containerPort: 9100
+          resources:
+            limits:
+              cpu: 200m
+              memory: 256Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          env:
+            - name: APP_NAME
+              value: geo-service
+            - name: ENV
+              value: dev
+          volumeMounts:
+            - mountPath: /configs/config.yaml
+              name: config-volume
+              subPath: config.yaml
+          imagePullPolicy: Always
+      volumes:
+        - name: config-volume
+          configMap:
+            name: geo-service-cfg

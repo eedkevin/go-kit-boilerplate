@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: dev
+  name: kafka-zk-svc
+spec:
+  selector:
+    project: kafka-zk
+    app: kafka-zk
+    namespace: dev
+  ports:
+    - name: default
+      protocol: TCP
+      port: 80
+      targetPort: 9092
+    - name: kafka
+      protocol: TCP
+      port: 9092
+      targetPort: 9092
+    - name: zk
+      protocol: TCP
+      port: 2181
+      targetPort: 2181

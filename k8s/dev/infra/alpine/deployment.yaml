@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: dev
+  name: alpine
+  labels:
+    namespace: dev
+    project: infra
+    app: alpine
+spec:
+  selector:
+    matchLabels:
+      namespace: dev
+      project: infra
+      app: alpine
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        namespace: dev
+        project: infra
+        app: alpine
+    spec:
+      restartPolicy: Always
+      containers:
+        - name: alpine
+          image: alpine:3.7
+          command: ["/bin/sh", "-c", "--"]
+          args: ["while true; do sleep 30; done;"]
+          resources:
+            limits:
+              cpu: 100m
+              memory: 56Mi
+            requests:
+              cpu: 50m
+              memory: 32Mi
+          imagePullPolicy: IfNotPresent

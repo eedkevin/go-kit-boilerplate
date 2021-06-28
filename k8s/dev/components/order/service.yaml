@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: dev
+  name: order-service-svc
+spec:
+  selector:
+    namespace: dev
+    project: go-kit-boilerplate
+    app: order-service
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 5050
+    - name: grpc
+      protocol: TCP
+      port: 5040
+      targetPort: 5040
+    - name: metrics
+      protocol: TCP
+      port: 9100
+      targetPort: 9100
