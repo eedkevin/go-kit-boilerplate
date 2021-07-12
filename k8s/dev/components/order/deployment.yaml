@@ -2,16 +2,16 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   namespace: dev
-  name: order-service
+  name: order
   labels:
     project: go-kit-boilerplate
-    app: order-service
+    app: order
 spec:
   selector:
     matchLabels:
       namespace: dev
       project: go-kit-boilerplate
-      app: order-service
+      app: order
   replicas: 1
   strategy:
     type: RollingUpdate
@@ -20,12 +20,12 @@ spec:
       labels:
         namespace: dev
         project: go-kit-boilerplate
-        app: order-service
+        app: order
     spec:
       restartPolicy: Always
       containers:
-        - name: order-service
-          image: eedkevin/go-kit-boilerplate:order-service
+        - name: order
+          image: eedkevin/go-kit-boilerplate:order
           ports:
             - name: http
               containerPort: 5050
@@ -42,7 +42,7 @@ spec:
               memory: 128Mi
           env:
             - name: APP_NAME
-              value: order-service
+              value: order
             - name: ENV
               value: dev
           volumeMounts:
@@ -53,4 +53,4 @@ spec:
       volumes:
         - name: config-volume
           configMap:
-            name: order-service-cfg
+            name: order-cfg

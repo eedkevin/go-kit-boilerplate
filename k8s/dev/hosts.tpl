@@ -1,1 +1,1 @@
-${MINIKUBE_IP} api.go-kit-boilerplate.io
+${minikube ip} api.go-kit-boilerplate.io

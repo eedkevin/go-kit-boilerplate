@@ -2,12 +2,12 @@ apiVersion: v1
 kind: Service
 metadata:
   namespace: dev
-  name: geo-service-svc
+  name: geo-svc
 spec:
   selector:
     namespace: dev
     project: go-kit-boilerplate
-    app: geo-service
+    app: geo
   ports:
     - name: http
       protocol: TCP

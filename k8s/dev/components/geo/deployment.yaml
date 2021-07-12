@@ -2,16 +2,16 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   namespace: dev
-  name: geo-service
+  name: geo
   labels:
     project: go-kit-boilerplate
-    app: geo-service
+    app: geo
 spec:
   selector:
     matchLabels:
       namespace: dev
       project: go-kit-boilerplate
-      app: geo-service
+      app: geo
   replicas: 1
   strategy:
     type: RollingUpdate
@@ -20,12 +20,12 @@ spec:
       labels:
         namespace: dev
         project: go-kit-boilerplate
-        app: geo-service
+        app: geo
     spec:
       restartPolicy: Always
       containers:
-        - name: geo-service
-          image: eedkevin/go-kit-boilerplate:geo-service
+        - name: geo
+          image: eedkevin/go-kit-boilerplate:geo
           ports:
             - name: http
               containerPort: 5050
@@ -42,7 +42,7 @@ spec:
               memory: 128Mi
           env:
             - name: APP_NAME
-              value: geo-service
+              value: geo
             - name: ENV
               value: dev
           volumeMounts:
@@ -53,4 +53,4 @@ spec:
       volumes:
         - name: config-volume
           configMap:
-            name: geo-service-cfg
+            name: geo-cfg

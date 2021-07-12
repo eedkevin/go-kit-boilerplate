@@ -2,16 +2,16 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   namespace: dev
-  name: account-service
+  name: account
   labels:
     project: go-kit-boilerplate
-    app: account-service
+    app: account
 spec:
   selector:
     matchLabels:
       namespace: dev
       project: go-kit-boilerplate
-      app: account-service
+      app: account
   replicas: 1
   strategy:
     type: RollingUpdate
@@ -20,12 +20,12 @@ spec:
       labels:
         namespace: dev
         project: go-kit-boilerplate
-        app: account-service
+        app: account
     spec:
       restartPolicy: Always
       containers:
-        - name: account-service
-          image: eedkevin/go-kit-boilerplate:account-service
+        - name: account
+          image: eedkevin/go-kit-boilerplate:account
           ports:
             - name: http
               containerPort: 5050
@@ -42,7 +42,7 @@ spec:
               memory: 128Mi
           env:
             - name: APP_NAME
-              value: account-service
+              value: account
             - name: ENV
               value: dev
           volumeMounts:
@@ -53,4 +53,4 @@ spec:
       volumes:
         - name: config-volume
           configMap:
-            name: account-service-cfg
+            name: account-cfg

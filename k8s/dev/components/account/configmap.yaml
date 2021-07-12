@@ -2,6 +2,6 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   namespace: dev
-  name: account-service-cfg
+  name: account-cfg
 data:
   config.yaml: |
